@@ -1,24 +1,18 @@
-import { Container, Flex, Box } from "@chakra-ui/react";
+import { Container, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { Footer } from "../components/Footer";
 
 import { ShortUrlForm } from "../components/Form/shorturl";
 import { Header } from "../components/Header";
+import { NextPageContext } from "next";
+
+interface IGetResponse {
+  getUrl: string;
+  message: string;
+}
 
 export default function App() {
   const router = useRouter();
-  const { c } = router.query;
-
-  useEffect(() => {
-    if (c) {
-      fetch(`/api/shortlink/get?shortUrl=` + c).then((res) => {
-        res.json().then((data) => {
-          window.location.replace(data.getUrl);
-        });
-      });
-    }
-  }, [c]);
 
   return (
     <Container>
@@ -29,4 +23,28 @@ export default function App() {
       <Footer />
     </Container>
   );
+}
+
+export async function getServerSideProps(context: NextPageContext) {
+  if (context.query.c) {
+    const shortUrlId = context.query.c;
+    const baseUrl = process.env.BASE_URL as string;
+
+    const fetchUrl = await fetch(
+      baseUrl + `/api/shortlink/get?shortUrl=` + shortUrlId
+    ).then(async (response) => await response.json());
+
+    const { getUrl } = fetchUrl;
+
+    return {
+      redirect: {
+        destination: getUrl ?? "/",
+        permanent: true,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 }

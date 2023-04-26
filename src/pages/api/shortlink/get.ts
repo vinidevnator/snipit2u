@@ -15,7 +15,7 @@ interface IResultGetLink extends WithId<Document> {
 async function getShortUrl(shortUrl: string) {
   const db = await collectionDb("links");
   const result = await db.findOne<IResultGetLink>({ shortUrl: shortUrl });
-
+  
   return result?.url;
 }
 
