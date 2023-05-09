@@ -1,13 +1,28 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 export function Header() {
+  const router = useRouter();
+
+  function handleOnClick() {
+    router.push("/");
+  }
   return (
-    <Flex justify="space-between">
+    <Flex justify="space-between" mt="2">
       <Box>
-        <span>Home</span>
+        <Button
+          color="white"
+          type="submit"
+          variant="link"
+          onClick={handleOnClick}
+        >
+          Home
+        </Button>
       </Box>
       <Box>
-        <span>Donate</span>
+        <Button disabled type="submit" variant="link">
+          Donate
+        </Button>
       </Box>
     </Flex>
   );

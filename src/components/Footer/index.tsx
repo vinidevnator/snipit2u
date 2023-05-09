@@ -5,8 +5,8 @@ export function Footer() {
     <SimpleGrid columns={1}>
       <Box>
         <p>
-          Plataforma para encurtação de URLs, onde a cada 90 dias é feita a
-          exclusão. Sendo somente para links temporários.
+          Platform for URL shortening, where every 90 days deletion is made. It
+          is only for temporary links.
         </p>
       </Box>
     </SimpleGrid>

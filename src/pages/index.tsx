@@ -1,19 +1,11 @@
+import { NextPageContext } from "next";
 import { Container, Flex } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import { Footer } from "../components/Footer";
 
 import { ShortUrlForm } from "../components/Form/shorturl";
 import { Header } from "../components/Header";
-import { NextPageContext } from "next";
-
-interface IGetResponse {
-  getUrl: string;
-  message: string;
-}
 
 export default function App() {
-  const router = useRouter();
-
   return (
     <Container>
       <Header />
