@@ -7,19 +7,20 @@ import {
   FormErrorMessage,
   Alert,
   Icon,
-  Stack,
   Code,
+  useToast,
 } from "@chakra-ui/react";
 
 import { useForm } from "react-hook-form";
 
-import { MdCloudDone } from "react-icons/md";
+import { MdCloudDone, MdCopyAll } from "react-icons/md";
 
 import { IFormShortUrl } from "./interface";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function ShortUrlForm() {
   const [shortedUrl, setShortedUrl] = useState("");
+  const toast = useToast();
 
   const {
     register,
@@ -32,7 +33,7 @@ export function ShortUrlForm() {
       isSubmitting,
     },
   } = useForm<IFormShortUrl>({
-    mode: "onBlur",
+    mode: "all",
     reValidateMode: "onChange",
     defaultValues: { url: "" },
   });
@@ -52,15 +53,39 @@ export function ShortUrlForm() {
         isInvalid={!isValid && Object.values(touchedFields).length > 0}
       >
         {isSubmitSuccessful && (
-          <Alert status="success" variant="solid">
-            <Flex direction="column">
-              <Flex align="center" textAlign="center">
-                <Icon as={MdCloudDone} mr="2" />
-                <p>The link was been saved! Copy and share!</p>
-              </Flex>
-              <Flex>
-                <Code> {shortedUrl} </Code>
-              </Flex>
+          <Alert
+            status="success"
+            variant="solid"
+            flexDirection="column"
+            alignItems="left"
+            justifyContent="center"
+            mb="2"
+          >
+            <Flex align="center">
+              <Icon as={MdCloudDone} mr="2" />
+              <p>The link was been saved! Copy and share!</p>
+            </Flex>
+            <Flex align="center">
+              <Code> {shortedUrl} </Code>
+              <Button
+                ml={1}
+                sx={{
+                  _hover: {
+                    backgroundColor: "red",
+                  },
+                }}
+                onClick={() => {
+                  navigator.clipboard.writeText(shortedUrl);
+                  toast({
+                    title: "Copied to clipboard!",
+                    status: "success",
+                    isClosable: true,
+                  });
+                }}
+                variant="ghost"
+              >
+                <Icon as={MdCopyAll} />
+              </Button>
             </Flex>
           </Alert>
         )}
@@ -74,14 +99,19 @@ export function ShortUrlForm() {
             placeholder="Copy and paste your link to short..."
             {...register("url", {
               required: { message: "Required field", value: true },
+              pattern: {
+                value:
+                  /^(https?:\/\/)?(www\.)?[a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(([0-9]{1,5})?\/.*)?$/,
+                message: "Provide a valid url",
+              },
             })}
           />
 
-          <FormErrorMessage>
-            {errors.url?.type === "required" && (
+          {errors.url && errors.url.message && (
+            <FormErrorMessage>
               <span>{errors.url?.message}</span>
-            )}
-          </FormErrorMessage>
+            </FormErrorMessage>
+          )}
         </Flex>
 
         <Flex mt="4">

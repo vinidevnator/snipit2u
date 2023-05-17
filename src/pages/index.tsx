@@ -26,7 +26,11 @@ export async function getServerSideProps(context: NextPageContext) {
       baseUrl + `/api/shortlink/get?shortUrl=` + shortUrlId
     ).then(async (response) => await response.json());
 
-    const { getUrl } = fetchUrl;
+    let { getUrl } = fetchUrl;
+
+    if (getUrl.startsWith("www")) {
+      getUrl = "http://" + getUrl;
+    }
 
     return {
       redirect: {

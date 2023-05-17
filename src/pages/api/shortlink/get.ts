@@ -2,10 +2,6 @@ import { WithId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 import { collectionDb } from "../../../config/mongo-db";
 
-interface IGetRequest {
-  shortUrl: string;
-}
-
 interface IResultGetLink extends WithId<Document> {
   url: string;
   expireSoon: boolean;
