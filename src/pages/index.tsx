@@ -1,9 +1,11 @@
+/* eslint-disable @next/next/inline-script-id */
 import { NextPageContext } from "next";
 import { Container, Flex } from "@chakra-ui/react";
 import { Footer } from "../components/Footer";
 
 import { ShortUrlForm } from "../components/Form/shorturl";
 import { Header } from "../components/Header";
+import Script from "next/script";
 
 export default function App() {
   return (
@@ -13,6 +15,18 @@ export default function App() {
         <ShortUrlForm />
       </Flex>
       <Footer />
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-2G6N6XDNP2"
+        strategy="afterInteractive"
+      >
+        {` 
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-2G6N6XDNP2');
+        `}
+      </Script>
     </Container>
   );
 }
