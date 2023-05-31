@@ -1,15 +1,20 @@
 /* eslint-disable @next/next/inline-script-id */
 import { NextPageContext } from "next";
+import Script from "next/script";
+import Head from "next/head";
+
 import { Container, Flex } from "@chakra-ui/react";
 import { Footer } from "../components/Footer";
 
 import { ShortUrlForm } from "../components/Form/shorturl";
 import { Header } from "../components/Header";
-import Script from "next/script";
 
 export default function App() {
   return (
     <Container>
+      <Head>
+        <title>Beenly - Short url!</title>
+      </Head>
       <Header />
       <Flex flexDirection="column" justify="center" w="100%" h="500px">
         <ShortUrlForm />
