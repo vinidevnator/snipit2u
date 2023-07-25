@@ -38,14 +38,23 @@ export default function App() {
 
 export async function getServerSideProps(context: NextPageContext) {
   if (context.query.c) {
-    const shortUrlId = context.query.c;
+    const shortUrlId = context.query.c as string;
     const baseUrl = process.env.BASE_URL as string;
 
-    const fetchUrl = await fetch(
+    const urlToFetch = new URL(
       baseUrl + `/api/shortlink/get?shortUrl=` + shortUrlId
-    ).then(async (response) => await response.json());
+    );
 
-    let { getUrl } = fetchUrl;
+    let { getUrl } = await fetch(urlToFetch, {
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (response) => await response.json())
+      .catch((error) => {
+        console.log(error);
+      });
 
     if (getUrl.startsWith("www")) {
       getUrl = "http://" + getUrl;

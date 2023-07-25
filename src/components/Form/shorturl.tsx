@@ -16,7 +16,7 @@ import { useForm } from "react-hook-form";
 import { MdCloudDone, MdCopyAll } from "react-icons/md";
 
 import { IFormShortUrl } from "./interface";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function ShortUrlForm() {
   const [shortedUrl, setShortedUrl] = useState("");
