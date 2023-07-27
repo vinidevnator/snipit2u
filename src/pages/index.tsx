@@ -41,6 +41,9 @@ export async function getServerSideProps(context: NextPageContext) {
     const shortUrlId = context.query.c as string;
     const baseUrl = process.env.BASE_URL as string;
 
+    const dns = await import("node:dns");
+    dns.setDefaultResultOrder("ipv4first");
+
     const urlToFetch = new URL(
       baseUrl + `/api/shortlink/get?shortUrl=` + shortUrlId
     );
