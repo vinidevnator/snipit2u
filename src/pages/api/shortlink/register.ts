@@ -4,17 +4,19 @@ import { collectionDb } from "../../../config/mongo-db";
 
 interface IRegisterRequest {
   url: string;
-  expireSoon: boolean;
 }
 
-async function saveShortUrl(
-  url: string,
-  expireSoon: boolean,
-  shortUrl: string
-) {
+async function saveShortUrl(url: string, shortUrl: string) {
   const db = await collectionDb("links");
+  const createdAt = new Date().toLocaleDateString("en-CA", {
+    timeZone: "America/Sao_Paulo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
   const result = await db
-    .insertOne({ url, expireSoon, shortUrl })
+    .insertOne({ url, createdAt, shortUrl })
     .then((result) => true)
     .catch((err) => false);
 
@@ -26,7 +28,7 @@ export default async function register(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const { url, expireSoon }: IRegisterRequest = JSON.parse(req.body);
+    const { url }: IRegisterRequest = JSON.parse(req.body);
 
     if (!url) {
       return res.status(400).json({ message: "Url field is required" });
@@ -34,7 +36,7 @@ export default async function register(
 
     const shortUrl = crypto.randomBytes(4).toString("hex");
 
-    const saveUrl = await saveShortUrl(url, expireSoon, shortUrl);
+    const saveUrl = await saveShortUrl(url, shortUrl);
 
     if (saveUrl) {
       return res.status(200).json({ shortUrl, message: "Success" });

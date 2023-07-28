@@ -4,7 +4,7 @@ import { collectionDb } from "../../../config/mongo-db";
 
 interface IResultGetLink extends WithId<Document> {
   url: string;
-  expireSoon: boolean;
+  createdAt: string;
   shortUrl: string;
 };
 
