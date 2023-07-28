@@ -1,6 +1,4 @@
-/* eslint-disable @next/next/inline-script-id */
 import { NextPageContext } from "next";
-import Script from "next/script";
 import Head from "next/head";
 
 import { Container, Flex } from "@chakra-ui/react";
@@ -20,18 +18,6 @@ export default function App() {
         <ShortUrlForm />
       </Flex>
       <Footer />
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-2G6N6XDNP2"
-        strategy="afterInteractive"
-      >
-        {` 
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-2G6N6XDNP2');
-        `}
-      </Script>
     </Container>
   );
 }
