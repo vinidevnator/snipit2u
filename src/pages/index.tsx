@@ -11,7 +11,7 @@ export default function App() {
   return (
     <Container>
       <Head>
-        <title>Beenly - Short url!</title>
+        <title>Snipit2U - Snip it!</title>
       </Head>
       <Header />
       <Flex flexDirection="column" justify="center" w="100%" h="500px">
