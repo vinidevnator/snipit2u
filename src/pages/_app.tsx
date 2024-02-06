@@ -4,7 +4,7 @@ import { defaultTheme } from "../theme";
 import { useEffect } from "react";
 import TagManager from "react-gtm-module";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function Snipit2u({ Component, pageProps }: AppProps) {
   useEffect(() => {
     TagManager.initialize({ gtmId: "G-2G6N6XDNP2" });
   }, []);
@@ -17,4 +17,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default Snipit2u;
