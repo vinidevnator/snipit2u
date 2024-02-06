@@ -1,4 +1,5 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 export function Header() {
@@ -18,6 +19,13 @@ export function Header() {
         >
           Home
         </Button>
+      </Box>
+      <Box>
+        <Link href="/privacy">
+          <Button type="submit" color="white" variant="link" h="/privacy">
+            Privacy
+          </Button>
+        </Link>
       </Box>
       <Box>
         <Button disabled type="submit" variant="link">
