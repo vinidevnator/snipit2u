@@ -44,7 +44,7 @@ export function ShortUrlForm() {
       body: JSON.stringify(data),
     }).then(async (response) => await response.json());
 
-    setShortedUrl(window.location.origin + "/?c=" + response.shortUrl);
+    setShortedUrl(window.location.origin + "/c/" + response.shortUrl);
   }
 
   return (
