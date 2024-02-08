@@ -13,11 +13,9 @@ export async function collectionDb(
 ): Promise<Collection<Document>> {
   const connection = await client.connect();
 
-  const db = connection
+  return connection
     .db(process.env.DATABASE_NAME as string)
     .collection(collection);
-
-  return db;
 }
 
 // Export a module-scoped MongoClient promise. By doing this in a
