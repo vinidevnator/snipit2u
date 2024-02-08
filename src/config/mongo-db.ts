@@ -3,7 +3,7 @@ import { MongoClient, Document, Collection } from "mongodb";
 const uri = process.env.CLUSTER_MONGO_DB;
 
 if (!process.env.CLUSTER_MONGO_DB) {
-  throw new Error("Please add your Mongo URI to .env.local");
+  throw new Error("Please add your Mongo URI to .env configuration");
 }
 
 const client = new MongoClient(uri!);
